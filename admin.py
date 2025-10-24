@@ -1,7 +1,8 @@
 from system import BusSystem
+from users import User
 
 
-class Admin:
+class Admin(User):
     def __init__(self):
         self.username = "admin"
         self.password = "1234"
@@ -26,8 +27,9 @@ class Admin:
             print("\nSelect Admin Option:")
             print("1. Add Bus")
             print("2. View Buses")
-            print("3. Logout")
-            choice = input("Enter your choice (1-3): ")
+            print("3. View Total Revenue")
+            print("4. Logout")
+            choice = input("Enter your choice (1-4): ")
             if choice == "1":
                 number = input("Enter bus number: ").strip()
                 route = input("Enter bus route: ").strip()
@@ -76,7 +78,12 @@ class Admin:
             elif choice == "2":
                 bus_system.show_buses()
             elif choice == "3":
+                bus_system.total_revenue()
+            elif choice == "4":
                 print("Logging out from Admin Dashboard.")
                 break
             else:
                 print("Invalid choice. Please try again.")
+
+    def display_profile(self):
+        print(f"Username: {self.username} | Password: {self.password}")

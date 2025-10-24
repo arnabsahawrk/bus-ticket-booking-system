@@ -1,8 +1,9 @@
 from helper import Helper
 from system import BusSystem
+from users import User
 
 
-class Passenger:
+class Passenger(User):
     def __init__(self, name, phone, tickets, bus):
         self.name = name
         self.phone = phone
@@ -21,6 +22,9 @@ class Passenger:
         print(f"Total Fare: ৳{self.tickets * self.bus.ticket_price}")
         print(f"Booking ID: {self.booking_id}")
         print("====================================\n")
+
+    def display_profile(self):
+        print(f"Passenger Name: {self.name} | Phone: {self.phone}")
 
 
 def passenger_interface():
@@ -50,6 +54,7 @@ def passenger_interface():
 
         if bus.available_seats() == 0:
             print("No seats available on this bus. Please choose another.")
+            action = Helper.continue_prompt()
 
             if action == "view_buses":
                 bus_system.show_buses()

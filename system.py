@@ -37,8 +37,17 @@ class BusSystem:  # use case of singleton, design pattern
         if not self.buses:
             print("No buses available.")
             return
+
+        print("\n========== BUS DETAILS ==========")
         for bus in self.buses:
             print(
                 f"Bus: {bus.number} | Route: {bus.route} | Total Seats: "
                 f"{bus.total_seats} | Available Seats: {bus.available_seats()} | Fare: {bus.ticket_price}"
             )
+        print("====================================\n")
+
+    def total_revenue(self):
+        total = 0
+        for passenger in self.passengers:
+            total += passenger.tickets * passenger.bus.ticket_price
+        print(f"\nTotal Revenue Collected: ৳{total}")
