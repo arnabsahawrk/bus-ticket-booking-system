@@ -11,8 +11,8 @@ class Admin:
 
     def admin_dashboard(self):
         while True:
-            username = input("Enter username: ")
-            password = input("Enter password: ")
+            username = input("Enter username: ").strip()
+            password = input("Enter password: ").strip()
 
             if self.login(username, password):
                 print("Login Successful!")
@@ -20,7 +20,7 @@ class Admin:
             else:
                 print("Invalid credentials. Please try again.")
 
-        print("\nWelcome To Admin Dashboard:")
+        print("\n========== WELCOME TO ADMIN DASHBOARD ==========")
         bus_system = BusSystem()
         while True:
             print("\nSelect Admin Option:")
@@ -29,12 +29,12 @@ class Admin:
             print("3. Logout")
             choice = input("Enter your choice (1-3): ")
             if choice == "1":
-                number = input("Enter bus number: ")
-                route = input("Enter bus route: ")
+                number = input("Enter bus number: ").strip()
+                route = input("Enter bus route: ").strip()
 
                 while True:
                     try:
-                        seats = int(input("Enter total seats: "))
+                        seats = int(input("Enter total seats: ").strip())
                         if seats <= 0:
                             print(
                                 "Total seats must be a positive integer. Please try again."
@@ -51,24 +51,24 @@ class Admin:
                             "Invalid input. Please enter a valid number for total seats."
                         )
 
-                    while True:
-                        try:
-                            ticket_price = float(input("Enter ticket price: "))
-                            if ticket_price <= 0:
-                                print(
-                                    "Ticket price must be a positive number. Please try again."
-                                )
-                                continue
-                            elif ticket_price < 500:
-                                print(
-                                    "Ticket price must be at least 500. Please try again."
-                                )
-                                continue
-                            break
-                        except ValueError:
+                while True:
+                    try:
+                        ticket_price = float(input("Enter ticket price: ").strip())
+                        if ticket_price <= 0:
                             print(
-                                "Invalid input. Please enter a valid number for ticket price."
+                                "Ticket price must be a positive number. Please try again."
                             )
+                            continue
+                        elif ticket_price < 500:
+                            print(
+                                "Ticket price must be at least 500. Please try again."
+                            )
+                            continue
+                        break
+                    except ValueError:
+                        print(
+                            "Invalid input. Please enter a valid number for ticket price."
+                        )
 
                 bus_system.add_bus(
                     number=number, route=route, seats=seats, ticket_price=ticket_price

@@ -37,7 +37,6 @@ class BusSystem:  # use case of singleton, design pattern
         if not self.buses:
             print("No buses available.")
             return
-
         for bus in self.buses:
             print(
                 f"Bus: {bus.number} | Route: {bus.route} | Total Seats: "

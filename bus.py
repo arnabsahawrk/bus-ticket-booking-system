@@ -15,3 +15,7 @@ class Bus:
             return True
         else:
             return False
+
+    @property
+    def booked_seats(self):
+        return self.__booked_seats

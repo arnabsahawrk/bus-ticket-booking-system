@@ -3,70 +3,92 @@ from system import BusSystem
 
 
 class Passenger:
-    def __init__(self, name, phone, Bus):
+    def __init__(self, name, phone, tickets, bus):
         self.name = name
         self.phone = phone
-        self.bus = Bus
-        self.booking_id = Helper.booking_id(Bus.number, Bus.booked_seats)
+        self.tickets = tickets
+        self.bus = bus
+        self.booking_id = Helper.booking_id(bus.number, bus.booked_seats)
 
     def get_details(self):
+        print("\n========== TICKET DETAILS ==========")
         print(f"Passenger Name: {self.name}")
         print(f"Phone Number: {self.phone}")
         print(f"Bus Number: {self.bus.number}")
         print(f"Route: {self.bus.route}")
+        print(f"Tickets Booked: {self.tickets}")
+        print(f"Ticket Price: ৳{self.bus.ticket_price}")
+        print(f"Total Fare: ৳{self.tickets * self.bus.ticket_price}")
         print(f"Booking ID: {self.booking_id}")
+        print("====================================\n")
 
 
 def passenger_interface():
     bus_system = BusSystem()
 
-    print("\nWelcome To Passenger Interface:")
+    print("\n========== WELCOME TO PASSENGER INTERFACE ==========\n")
+
+    name = input("Enter your name: ")
+    phone = input("Enter your phone number: ")
+
     while True:
-        name = input("Enter your name: ")
-        phone = input("Enter your phone number: ")
+        bus_number = input("Enter bus number to book ticket: ")
+        bus = bus_system.find_bus(bus_number)
 
-        while True:
-            bus_number = input("Enter bus number to book ticket: ")
-            bus = bus_system.find_bus(bus_number)
+        if not bus:
+            print("Bus not found. Please try again.")
+            action = Helper.continue_prompt()
 
-            if not bus:
-                print("Bus not found. Please try again.")
-            elif bus.available_seats() == 0:
-                print("No seats available on this bus. Please choose another bus.")
+            if action == "view_buses":
+                bus_system.show_buses()
+                continue
+            elif action == "exit":
+                print("Exiting Passenger Interface.")
+                return
             else:
-                break
-        while True:
-            try:
-                seats_to_book = int(input("Enter number of seats to book: "))
-                if seats_to_book <= 0:
-                    print(
-                        "Number of seats must be a positive integer. Please try again."
-                    )
-                    continue
+                continue
 
-                if bus.book_seat(seats_to_book):
-                    passenger = Passenger(name, phone, bus)
-                    bus_system.passengers.append(passenger)
-                    print(
-                        f"Booking successful! Your booking ID is {passenger.booking_id}."
-                    )
-                    break
-                else:
-                    print(
-                        f"Only {bus.available_seats()} seats are available. Please try again."
-                    )
-            except ValueError:
-                print("Invalid input. Please enter a valid number for seats to book.")
+        if bus.available_seats() == 0:
+            print("No seats available on this bus. Please choose another.")
 
-        print("1. Get Ticket Details")
-        print("2. Exit")
+            if action == "view_buses":
+                bus_system.show_buses()
+                continue
+            elif action == "exit":
+                print("Exiting Passenger Interface.")
+                return
+            else:
+                continue
 
-        choice = input("Enter your choice (1-2): ")
-        if choice == "1":
-            passenger.get_details()
-            break
-        elif choice == "2":
-            print("Exiting Passenger Interface.")
-            break
+        try:
+            seats_to_book = int(input("Enter number of seats to book: ").strip())
+            if seats_to_book <= 0:
+                print("Seats must be a positive integer.")
+                continue
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            continue
+
+        if seats_to_book > bus.available_seats():
+            print(f"Only {bus.available_seats()} seats available. Please try again.")
+            continue
+
+        if bus.book_seat(seats_to_book):
+            passenger = Passenger(name, phone, seats_to_book, bus)
+            bus_system.passengers.append(passenger)
+            print(f"Booking successful! Booking ID: {passenger.booking_id}")
         else:
-            print("Invalid choice. Please try again.")
+            print("Booking failed. Try again.")
+            continue
+
+        while True:
+            print("\n1. View Ticket Details")
+            print("2. Exit")
+            choice = input("Enter your choice (1-2): ")
+            if choice == "1":
+                passenger.get_details()
+            elif choice == "2":
+                print("Exiting Passenger Interface.\n")
+                return
+            else:
+                print("Invalid choice. Please try again.")
