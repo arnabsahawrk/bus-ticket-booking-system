@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from helper import Helper
 from system import BusSystem
 from users import User
@@ -10,6 +12,7 @@ class Passenger(User):
         self.tickets = tickets
         self.bus = bus
         self.booking_id = Helper.booking_id(bus.number, bus.booked_seats)
+        self.booking_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     def get_details(self):
         print("\n========== TICKET DETAILS ==========")
@@ -21,6 +24,7 @@ class Passenger(User):
         print(f"Ticket Price: ৳{self.bus.ticket_price}")
         print(f"Total Fare: ৳{self.tickets * self.bus.ticket_price}")
         print(f"Booking ID: {self.booking_id}")
+        print(f"Booking Time: {self.booking_time}")
         print("====================================\n")
 
     def display_profile(self):
