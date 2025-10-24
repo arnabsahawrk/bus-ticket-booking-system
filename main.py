@@ -1,9 +1,6 @@
 from admin import Admin
+from passenger import passenger_interface
 from system import BusSystem
-
-
-def passenger_interface():
-    pass
 
 
 def main():
@@ -23,9 +20,11 @@ def main():
 
         elif choice == "2":
             passenger_interface()
+
         elif choice == "3":
             bus_system = BusSystem()
             bus_system.show_buses()
+
         elif choice == "4":
             print("Exiting the system. Goodbye!")
             break

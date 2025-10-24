@@ -3,8 +3,8 @@ class Bus:
         self.number = number
         self.route = route
         self.total_seats = total_seats
-        self.__booked_seats = 0
         self.ticket_price = ticket_price
+        self.__booked_seats = 0
 
     def available_seats(self):
         return self.total_seats - self.__booked_seats
