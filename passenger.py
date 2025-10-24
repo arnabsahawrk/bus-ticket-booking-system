@@ -12,7 +12,7 @@ class Passenger:
         return {
             "name": self.name,
             "phone": self.phone,
-            "ticket_number": self.booking_id,
             "bus_number": self.bus.number,
             "route": self.bus.route,
+            "ticket_number": self.booking_id,
         }

@@ -14,15 +14,24 @@ class BusSystem:  # use case of singleton, design pattern
             self.buses = []
             self.passengers = []
 
-    def add_bus(self, number, route, seats):
+    def add_bus(self, number, route, seats, ticket_price):
         if any(bus.number.lower() == number.lower() for bus in self.buses):
             print("Bus with this number already exists.")
             return
 
-        new_bus = Bus(number, route, seats)
+        new_bus = Bus(number.upper(), route.upper(), seats, ticket_price)
         self.buses.append(new_bus)
         print("Bus added successfully.")
         return new_bus
+
+    def find_bus(self, number):
+        if not self.buses:
+            return None
+
+        bus = next(
+            (bus for bus in self.buses if bus.number.lower() == number.lower()), None
+        )
+        return bus
 
     def show_buses(self):
         if not self.buses:
@@ -32,5 +41,5 @@ class BusSystem:  # use case of singleton, design pattern
         for bus in self.buses:
             print(
                 f"Bus: {bus.number} | Route: {bus.route} | Total Seats: "
-                f"{bus.total_seats} | Available Seats: {bus.available_seats()}"
+                f"{bus.total_seats} | Available Seats: {bus.available_seats()} | Fare: {bus.ticket_price}"
             )
