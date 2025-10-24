@@ -1,4 +1,4 @@
-from helper import BookingId
+from helper import Helper
 
 
 class Passenger:
@@ -6,7 +6,7 @@ class Passenger:
         self.name = name
         self.phone = phone
         self.bus = Bus
-        self.booking_id = BookingId.generate(Bus.number, Bus.booked_seats)
+        self.booking_id = Helper.booking_id(Bus.number, Bus.booked_seats)
 
     def get_details(self):
         return {
@@ -15,5 +15,5 @@ class Passenger:
             "ticket_number": self.booking_id,
             "bus_number": self.bus.number,
             "route": self.bus.route,
-            "available_seats": self.bus.available_seats()
+            "available_seats": self.bus.available_seats(),
         }
