@@ -15,5 +15,4 @@ class Passenger:
             "ticket_number": self.booking_id,
             "bus_number": self.bus.number,
             "route": self.bus.route,
-            "available_seats": self.bus.available_seats(),
         }

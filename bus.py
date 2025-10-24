@@ -7,7 +7,7 @@ class Bus:
 
     def available_seats(self):
         return self.total_seats - self.__booked_seats
-    
+
     def book_seat(self, number_of_seats):
         if number_of_seats <= self.available_seats():
             self.__booked_seats += number_of_seats
