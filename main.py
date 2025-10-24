@@ -18,7 +18,6 @@ def main():
         choice = input("Enter your choice (1-4): ")
 
         if choice == "1":
-            print("\nWelcome To Admin Dashboard:")
             admin = Admin()
             admin.admin_dashboard()
 
